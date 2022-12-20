@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
 using Random = UnityEngine.Random;
+using TMPro;
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {
@@ -41,6 +42,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_NextStep;
         private bool m_Jumping;
         private AudioSource m_AudioSource;
+        public TextMeshProUGUI countText;
+        public GameObject winTextObject;
+        private int count;
 
         // Use this for initialization
         private void Start()
@@ -55,9 +59,19 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
+
+            SetCountText();
+            winTextObject.SetActive(false);
         }
 
-
+        void SetCountText()
+        {
+            countText.text = "Water: " + count.ToString();
+            if (count >= 48)
+            {
+                winTextObject.SetActive(true);
+            }
+        }
         // Update is called once per frame
         private void Update()
         {
@@ -260,7 +274,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (other.gameObject.CompareTag("PickUp"))
             {
                 other.gameObject.SetActive(false);
-                
+                count = count + 1;
+
+                SetCountText();
             }
 
         }
