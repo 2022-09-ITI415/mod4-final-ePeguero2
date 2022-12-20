@@ -47,7 +47,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private int count;
 
         // Use this for initialization
-        private void Start()
+        void Start()
         {
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
@@ -59,6 +59,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
+
+            count = 0;
 
             SetCountText();
             winTextObject.SetActive(false);
